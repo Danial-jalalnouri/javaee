@@ -1,0 +1,15 @@
+2025-06-28 22:44:03.399032+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CUSTOMER" not found; SQL statement:
+SELECT COUNT(*) FROM customer c JOIN real_customer rc ON c.id = rc.id WHERE LOWER(c.name) = LOWER(?) AND LOWER(rc.family) = LOWER(?) [42102-232]
+2025-06-28 22:44:03.403812+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CUSTOMER" not found; SQL statement:
+SELECT COUNT(*) FROM customer c JOIN legal_customer lc ON c.id = lc.id WHERE LOWER(c.name) = LOWER(?) [42102-232]
+2025-06-28 22:44:03.404201+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CUSTOMER" not found; SQL statement:
+SELECT COUNT(*) FROM customer c JOIN real_customer rc ON c.id = rc.id WHERE LOWER(c.name) = LOWER(?) AND LOWER(rc.family) = LOWER(?) [42102-232]
+2025-06-28 22:44:21.530316+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CUSTOMER" not found (this database is empty); SQL statement:
+SELECT * FROM customer [42104-232]
+2025-06-28 22:46:07.154975+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CUSTOMER" already exists; SQL statement:
+CREATE TABLE customer ( id BIGINT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, phone_number VARCHAR(20), type VARCHAR(10) ) [42101-232]
