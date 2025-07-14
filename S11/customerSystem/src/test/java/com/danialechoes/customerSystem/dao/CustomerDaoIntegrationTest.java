@@ -5,12 +5,9 @@ import com.danialechoes.customerSystem.model.RealCustomer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,23 +21,11 @@ public class CustomerDaoIntegrationTest {
     @Autowired
     private CustomerDao customerDao;
 
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
-
-    @Value("${spring.datasource.username}")
-    private String dbUser;
-
-    @Value("${spring.datasource.password}")
-    private String dbPass;
-
     @AfterEach
     void cleanUp() {
-        try(Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass)) {
-            conn.createStatement().execute("DELETE FROM deposit");
-            conn.createStatement().execute("DELETE FROM customer");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        customerDao.findAll().forEach(customer -> {
+            customerDao.deleteById(customer.getId());
+        });
     }
 
     @Test

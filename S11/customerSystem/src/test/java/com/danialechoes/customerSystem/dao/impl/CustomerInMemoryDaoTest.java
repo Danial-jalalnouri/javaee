@@ -10,8 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.util.Optional;
 
 
-@SpringBootTest(classes = {CustomerInMemoryDao.class,
-org.springframework.validation.beanvalidation.LocalValidatorFactoryBean.class})
+@SpringBootTest
 @ActiveProfiles({"memo"})
 public class CustomerInMemoryDaoTest {
 

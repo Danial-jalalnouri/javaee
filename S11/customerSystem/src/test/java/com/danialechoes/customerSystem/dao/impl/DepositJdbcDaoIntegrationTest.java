@@ -1,17 +1,13 @@
 package com.danialechoes.customerSystem.dao.impl;
 
-import com.danialechoes.customerSystem.dao.CustomerDao;
 import com.danialechoes.customerSystem.model.Deposit;
 import com.danialechoes.customerSystem.model.LegalCustomer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Optional;
 
 @SpringBootTest
@@ -24,24 +20,14 @@ public class DepositJdbcDaoIntegrationTest {
     @Autowired
     private CustomerJdbcDao customerJdbcDao;
 
-    @Value("${spring.datasource.url}")
-    private String dbUrl;
-
-    @Value("${spring.datasource.username}")
-    private String dbUser;
-
-    @Value("${spring.datasource.password}")
-    private String dbPass;
-
-
     @AfterEach
     void cleanUp() {
-        try(Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPass)) {
-            conn.createStatement().execute("DELETE FROM deposit");
-            conn.createStatement().execute("DELETE FROM customer");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        depositJdbcDao.findAll().forEach(deposit -> {
+            depositJdbcDao.deleteById(deposit.getId());
+        });
+        customerJdbcDao.findAll().forEach(customer -> {
+            customerJdbcDao.deleteById(customer.getId());
+        });
     }
 
     @Test
