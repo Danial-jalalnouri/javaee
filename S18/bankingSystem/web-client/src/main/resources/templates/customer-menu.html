@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Menu</title>
+</head>
+<body>
+<h2>Customer Management Menu</h2>
+<ul>
+    <li><a th:href="@{/customer/list}">View All Customers</a></li>
+    <li><a th:href="@{/customer/find}">Find Customer by Name</a></li>
+    <li><a th:href="@{/customer/view}">Find Customer by ID</a></li>
+    <li><a th:href="@{/}">Back to Main Menu</a></li>
+</ul>
+</body>
+</html>
