@@ -1,0 +1,3 @@
+2025-09-15 00:17:52.928128+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEPOSIT" not found; SQL statement:
+SELECT c.id FROM deposit d JOIN customer c ON d.customer_id = c.id GROUP BY d.customer_id ORDER BY SUM(d.amount) DESC LIMIT 1; [42102-232]

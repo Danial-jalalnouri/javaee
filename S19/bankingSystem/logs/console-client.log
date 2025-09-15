@@ -1,0 +1,16 @@
+2025-08-24 22:19:58 [main] INFO  [,] c.d.customerSystem.SpringAppRunner - Starting SpringAppRunner using Java 22.0.2 with PID 52845 (/Users/danial/IdeaProjects/sample/bankingSystem/console-client/target/classes started by danial in /Users/danial/IdeaProjects/sample/bankingSystem)
+2025-08-24 22:19:58 [main] INFO  [,] c.d.customerSystem.SpringAppRunner - The following 1 profile is active: "console"
+2025-08-24 22:19:59 [main] INFO  [,] c.d.c.console.MainConsoleInterface - MainConsoleInterface initialized
+2025-08-24 22:19:59 [main] INFO  [,] c.d.customerSystem.SpringAppRunner - Started SpringAppRunner in 0.914 seconds (process running for 1.19)
+2025-08-24 22:19:59 [main] INFO  [,] c.d.c.console.MainConsoleInterface - Starting Main Console Interface...
+2025-08-24 22:47:14 [main] INFO  [2d99d4e132e64b8b,c7d97dd4] c.d.c.console.MainConsoleInterface - User selected choice: 1
+2025-08-24 22:47:14 [main] INFO  [2d99d4e132e64b8b,c7d97dd4] c.d.c.console.MainConsoleInterface - Navigating to Customer Console...
+2025-08-24 22:47:16 [main] DEBUG [2d99d4e132e64b8b,c7d97dd4] feign.template.Template - Explicit slash decoding specified, decoding all slashes in uri
+2025-08-24 22:47:16 [main] DEBUG [2d99d4e132e64b8b,c7d97dd4] feign.template.Template - Explicit slash decoding specified, decoding all slashes in uri
+2025-08-24 22:47:16 [main] DEBUG [2d99d4e132e64b8b,c7d97dd4] feign.template.Template - Explicit slash decoding specified, decoding all slashes in uri
+2025-08-24 22:47:16 [main] DEBUG [2d99d4e132e64b8b,c7d97dd4] feign.template.Template - Explicit slash decoding specified, decoding all slashes in uri
+2025-08-24 23:53:42 [main] INFO  [,] c.d.customerSystem.SpringAppRunner - Starting SpringAppRunner using Java 22.0.2 with PID 53930 (/Users/danial/IdeaProjects/sample/bankingSystem/console-client/target/classes started by danial in /Users/danial/IdeaProjects/sample/bankingSystem)
+2025-08-24 23:53:42 [main] INFO  [,] c.d.customerSystem.SpringAppRunner - The following 1 profile is active: "console"
+2025-08-24 23:53:43 [main] INFO  [,] c.d.c.console.MainConsoleInterface - MainConsoleInterface initialized
+2025-08-24 23:53:43 [main] INFO  [,] c.d.customerSystem.SpringAppRunner - Started SpringAppRunner in 1.169 seconds (process running for 1.479)
+2025-08-24 23:53:43 [main] INFO  [,] c.d.c.console.MainConsoleInterface - Starting Main Console Interface...

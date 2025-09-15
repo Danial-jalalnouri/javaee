@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banking AI Service</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .chat-container {
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #f8f9fa;
+        }
+        .question {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            text-align: right;
+        }
+        .answer {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            text-align: left;
+        }
+        .sql-query {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9em;
+            margin: 5px 0;
+        }
+        .error {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">🤖 Banking AI Service</h1>
+        <p class="text-center text-muted">Ask questions about customer and deposits in natural language!</p>
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Chat with AI</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="chatContainer" class="chat-container mb-3"></div>
+                        <div class="input-group">
+                            <input type="text" id="questionInput" class="form-control"
+                                   placeholder="Ask a question like: 'Which customer has the most money?' or 'Show me all customers with deposits over 1000'"
+                                   onkeypress="handleKeyPress(event)">
+                            <button class="btn btn-primary" onclick="askQuestion()">Ask</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h6>Example Questions:</h6>
+                    <div class="list-group">
+                        <button class="list-group-item list-group-item-action" onclick="setQuestion('How many customer do we have ?')">
+                            How many customer do we have ?
+                        </button>
+                        <button class="list-group-item list-group-item-action" onclick="setQuestion('Which customer has the most money?')">
+                            Which customer has the most money?
+                        </button>
+                        <button class="list-group-item list-group-item-action" onclick="setQuestion('Show me all customers')">
+                            Show me all customers
+                        </button>
+                        <button class="list-group-item list-group-item-action" onclick="setQuestion('How many deposits do we have?')">
+                            How many deposits do we have?
+                        </button>
+                        <button class="list-group-item list-group-item-action" onclick="setQuestion('What is the total amount of all deposits?')">
+                            What is the total amount of all deposits?
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function setQuestion(question) {
+            document.getElementById('questionInput').value = question;
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                askQuestion();
+            }
+        }
+
+        async function askQuestion() {
+            const questionInput = document.getElementById('questionInput');
+            const question = questionInput.value.trim();
+
+            if (!question) {
+                alert('Please enter a question');
+                return;
+            }
+
+            const chatContainer = document.getElementById('chatContainer');
+
+            // Add question to chat
+            addMessage(question, 'question');
+
+            // Clear input
+            questionInput.value = '';
+
+            // Add loading message
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'answer';
+            loadingDiv.innerHTML = '🤔 Thinking...';
+            loadingDiv.id = 'loading';
+            chatContainer.appendChild(loadingDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            try {
+                const response = await fetch('/api/ai/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ question: question })
+                });
+
+                const data = await response.json();
+
+                // Remove loading message
+                document.getElementById('loading').remove();
+
+                if (data.error) {
+                    addMessage(data.error, 'error');
+                } else {
+                    // Add SQL query if available
+                    if (data.sqlQuery) {
+                        addMessage(`SQL: ${data.sqlQuery}`, 'sql-query');
+                    }
+
+                    // Add human readable answer
+                    addMessage(data.humanReadableAnswer || 'No answer generated', 'answer');
+                }
+
+            } catch (error) {
+                // Remove loading message
+                const loading = document.getElementById('loading');
+                if (loading) loading.remove();
+
+                addMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        function addMessage(message, type) {
+            const chatContainer = document.getElementById('chatContainer');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = type;
+            messageDiv.textContent = message;
+            chatContainer.appendChild(messageDiv);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        // Add welcome message
+        window.onload = function() {
+            addMessage('Hello! I can help you query customer and deposit data using natural language. Try asking a question!', 'answer');
+        };
+    </script>
+</body>
+</html>

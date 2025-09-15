@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View customer by ID</title>
+</head>
+<body>
+<h2>View customer by ID</h2>
+<form th:action="@{/customer/view}" method="post">
+    <label>Customer ID: <input type="number" name="cid" required></label>
+    <button type="submit">View</button>
+</form>
+<div th:if="${error != null}" style="color:red;">
+    <p th:text="${error}"></p>
+</div>
+<div th:if="${customer != null}">
+    <h3>Customer Details:</h3>
+    <p>ID: <span th:text="${customer.id}"></span></p>
+    <p>Name: <span th:text="${customer.name}"></span></p>
+    <p>Type: <span th:text="${customer.type}"></span></p>
+    <div th:if="${customer.isRealCustomer}">
+        <p th:if="${customer.family != null}">Family: <span th:text="${customer.family}"></span></p>
+    </div>
+    <div th:if="${!customer.isRealCustomer}">
+        <p th:if="${customer.fax != null}">Fax: <span th:text="${customer.fax}"></span></p>
+    </div>
+    <p>Phone Number: <span th:text="${customer.phoneNumber}"></span></p>
+</div>
+<a th:href="@{/customer}">Back to Customer Menu</a>
+</body>
+</html>

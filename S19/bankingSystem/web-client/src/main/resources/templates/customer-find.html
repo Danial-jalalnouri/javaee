@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Customer by Name</title>
+</head>
+<body>
+<h2>Find Customer by Name</h2>
+<form th:action="@{/customer/find}" method="post">
+    <div th:if="${error}" style="color:red;">[[${error}]]</div>
+    <label>Name: <input type="text" name="name" required></label>
+    <button type="submit">Find</button>
+</form>
+</body>
+</html>
